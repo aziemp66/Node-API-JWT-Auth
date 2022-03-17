@@ -1,0 +1,25 @@
+{
+	"name": "node.js-jwt-tokens-auth",
+	"version": "1.0.0",
+	"description": "",
+	"main": "app.js",
+	"scripts": {
+		"start": "nodemon app.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/aziemp66/Node-API-JWT-Auth"
+	},
+	"author": "Azie",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/aziemp66/Node-API-JWT-Auth/issues"
+	},
+	"homepage": "https://github.com/aziemp66/Node-API-JWT-Auth#readme",
+	"dependencies": {
+		"express": "^4.17.3"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.15"
+	}
+}
