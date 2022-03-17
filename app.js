@@ -1,14 +1,12 @@
 const express = require("express");
 
+const authRoutes = require("./router/auth.routes");
+
 const app = express();
 
-app.use(express.json());
+app.use(authRoutes);
 
-app.get("/", (req, res) => {
-	res.status(200).json({
-		message: "Welcome to the API",
-	});
-});
+app.use(express.json());
 
 //listen on port 3000
 app.listen(3000, () => {
