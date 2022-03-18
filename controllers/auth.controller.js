@@ -25,7 +25,7 @@ async function register(req, res) {
 
 	const user = new User({
 		name: req.body.name,
-		email: req.body.email,
+		email: req.body.email.toLowerCase(),
 		password: hashedPassword,
 	});
 
@@ -33,10 +33,47 @@ async function register(req, res) {
 		const savedUser = await user.save();
 		res.json({ user: user._id });
 	} catch (error) {
-		res.status(400).send(error);
+		return res.status(400).json({
+			error: error,
+		});
 	}
+}
+
+async function login(req, res) {
+	//Validating data
+	const { error } = validation.loginValidation(req.body);
+	if (error) {
+		return res.status(400).json({
+			error: error.details[0].message,
+		});
+	}
+
+	//Checking if user exists
+	const userFound = await User.findOne({ email: req.body.email });
+	if (!userFound) {
+		return res.status(400).json({
+			error: "Email or password is incorrect",
+		});
+	}
+
+	//Password is Correct
+	const validPassword = await bcrypt.compare(
+		req.body.password,
+		userFound.password
+	);
+	if (!validPassword) {
+		return res.status(400).json({
+			error: "Email or password is incorrect",
+		});
+	}
+
+	res.status(200).json({
+		message: "Login Successful",
+		user: userFound._id,
+	});
 }
 
 module.exports = {
 	register,
+	login,
 };
