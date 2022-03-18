@@ -6,9 +6,9 @@ const authRoutes = require("./router/auth.routes");
 
 const app = express();
 
-app.use(authRoutes);
-
 app.use(express.json());
+
+app.use(authRoutes);
 
 db.connectToDatabase()
 	.then(() => {

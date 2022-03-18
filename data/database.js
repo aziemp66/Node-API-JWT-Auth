@@ -1,26 +1,23 @@
-const mongodb = require("mongodb");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-const MongoClient = mongodb.MongoClient;
+dotenv.config();
 
-let mongodbUrl =
-	"mongodb+srv://default:dummypassword123@mydatabase.g7wpf.mongodb.net/buddyvest?retryWrites=true&w=majority";
-
-let database;
+let mongodbUrl = "mongodb://localhost:27017";
 
 async function connectToDatabase() {
-	const client = await MongoClient.connect(mongodbUrl);
-	database = client.db("buddyvest");
-}
-
-function getDb() {
-	if (!database) {
-		throw new Error("You must connect first!");
+	if (process.env.DB_CONNECT) {
+		mongodbUrl = process.env.DB_CONNECT;
 	}
-
-	return database;
+	mongoose.connect(
+		mongodbUrl,
+		{
+			useNewUrlParser: true,
+		},
+		() => console.log("Connected to database")
+	);
 }
 
 module.exports = {
 	connectToDatabase: connectToDatabase,
-	getDb: getDb,
 };
