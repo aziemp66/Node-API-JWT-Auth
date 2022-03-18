@@ -17,7 +17,9 @@
 	},
 	"homepage": "https://github.com/aziemp66/Node-API-JWT-Auth#readme",
 	"dependencies": {
-		"express": "^4.17.3"
+		"express": "^4.17.3",
+		"mongodb": "^4.4.1",
+		"mongoose": "^6.2.7"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.15"
