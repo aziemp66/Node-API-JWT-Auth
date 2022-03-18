@@ -1,6 +1,8 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 const User = require("../model/user.model");
 const validation = require("../util/validation");
-const bcrypt = require("bcryptjs");
 
 async function register(req, res) {
 	//Validating data
@@ -67,8 +69,10 @@ async function login(req, res) {
 		});
 	}
 
-	res.status(200).json({
-		message: "Login Successful",
+	//Create and assign a token
+	const token = jwt.sign({ _id: userFound._id }, process.env.TOKEN_SECRET);
+	res.header("auth-token", token).json({
+		token: token,
 		user: userFound._id,
 	});
 }
