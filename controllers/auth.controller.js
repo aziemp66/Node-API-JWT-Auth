@@ -73,7 +73,6 @@ async function login(req, res) {
 	const token = jwt.sign({ _id: userFound._id }, process.env.TOKEN_SECRET);
 	res.header("auth-token", token).json({
 		token: token,
-		user: userFound._id,
 	});
 }
 
